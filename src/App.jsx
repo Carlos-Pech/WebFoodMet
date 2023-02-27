@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+// import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
 // layout
 import LayoutAdmin from "./layouts/LayoutAdmin";
@@ -18,40 +19,30 @@ import Add from "./pages/PruebasConsimoAPI";
 import ProductAdd from './pages/admin/ProductAdd'
 
 function isAuth() {
-  // Comprobar si el usuario está autenticado o no (p. ej., mediante un token de autenticación en localStorage)
   return localStorage.getItem("token") !== null;
 }
 
-function PrivateRoute({ element: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      element={
-        isAuth() ? (
-          <Component {...rest} />
-        ) : (
-          <Navigate to="/" replace />
-        )
-      }
-    />
+function RouteWithAuth({ element: Component, ...rest }) {
+  return isAuth() ? (
+    <Component {...rest} />
+  ) : (
+    <Navigate to="/" replace />
   );
 }
-
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/*" element={<LayoutAuth />}>
-          <Route path="login" element={<Login />} />
+          <Route index element={<Login />} />
         </Route>
 
-        <Route path="/admin/*" element={<LayoutAdmin />}>
-          <Route index element={<Home />} />
-          <Route path="home" element={<PrivateRoute element={<Home />} />} />
-          <Route path="platillos" element={<PrivateRoute element={<Platillos />} />} />ñ
-          <Route path="ingredientes" element={<PrivateRoute element={<Ingredientes />} />} />
-          <Route path="pruebas" element={<PrivateRoute element={<Consumo />} />} />
+        <Route path="/home" element={<LayoutAdmin />}>
+          <Route index element={<RouteWithAuth element={Home} />} />
+          <Route path="platillos" element={<RouteWithAuth element={ProductAdd} />} />
+          <Route path="ingredientes" element={<RouteWithAuth element={Ingredientes} />} />
+          <Route path="pruebas" element={<RouteWithAuth element={Consumo} />} />
         </Route>
 
         <Route path="*" element={<Error404 />} />
@@ -59,5 +50,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 export default App;
