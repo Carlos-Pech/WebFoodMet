@@ -6,7 +6,10 @@ import Select from "react-select";
 function ModalProduct({ isVisible, onClose }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [time, setTime] = useState("");
   const [status, setStatus] = useState("");
+  const [nutrition, setNutrition] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
@@ -49,45 +52,59 @@ function ModalProduct({ isVisible, onClose }) {
     fetchIngredients();
   }, []);
 
-  //aqui se mapean los ingredientes disponibles en el db para que aparezcan en el select, el valor que se selecciona es el id del ingrediente y se despliega el name
   const ingredientOptions = ingredientes2.map((ingredient) => ({
     value: ingredient._id,
     label: ingredient.name,
-    calories: ingredient.calories // Agregar la propiedad de calorías
+    calories: ingredient.calories,
+    unidad: ingredient.unidad,
+    weight: ingredient.weight // Nueva propiedad para el gramaje del ingrediente
+
   }));
-
-  const selectedIngredientsWithCalories = selectedIngredients.map(ingredient => {
-    const { label, calories } = ingredient;
-    return { name: label, calories: calories || 0 };
-  });
-
+  // function calculateCalories() {
+  //   let total = 0;
+  //   selectedIngredients.forEach((ingredient) => {
+  //     const selectedIngredient = ingredientOptions.find(
+  //       (opt) => opt.value === ingredient.value
+  //     );
+  //     const ingredientCalories = parseInt(selectedIngredient.calories);
+  //     const ingredientWeight = parseInt(ingredient.weight);
+  //     const CaloriesPIngredient = ingredientCalories * ingredientWeight;
+  //     total += CaloriesPIngredient;
+  //   });
+  //   setTotalCalories(total);
+  // }
 
 
 
 
   function submitForm(e) {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('category', selectedCategory);
-    formData.append('subcategory', selectedSubcategory);
-    formData.append('price', price);
-    formData.append('Ingredients', JSON.stringify(selectedIngredientsWithCalories));
-    formData.append('image', image);
-
-    axios.post('http://localhost:3050/api/product/store', formData, {
+    const data = {
+      "name": name,
+      "description": description,
+      "price": price,
+      "nutrition": nutrition,
+      "category": selectedCategory,
+      "subcategory": selectedSubcategory,
+      "inCart": false,
+      "time": time,
+      "ingredients": selectedIngredients
+    }
+    axios.post("http://localhost:3050/api/product/store", data, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "multipart/form-data",
       },
     })
       .then(() => {
         onClose();
-        setName('');
-        setCategories([]);
-        setSubcategories([]);
-        setPrice('');
-        setingredientes2([]);
+        setName("");
+        setSelectedCategory([]);
+        setSelectedSubcategory([]);
+        setPrice("");
+        setTime("");
+        setNutrition([]);
+        setDescription("");
+        setSelectedIngredients([]);
         setImage(null);
       });
   }
@@ -120,12 +137,26 @@ function ModalProduct({ isVisible, onClose }) {
                 placeholder="Nombre del producto"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
+                <input
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                type="text"
+                placeholder="Descripcion del producto"
+                class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+              />
 
               <input
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 type="text"
                 placeholder="Precio"
+                class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+              />
+              <input
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                type="number"
+                placeholder="Tiempo de preparacion (minutos)"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
               <select
@@ -150,41 +181,56 @@ function ModalProduct({ isVisible, onClose }) {
               </select>
 
               <Select
-                name="ingredients"
-                isMulti
                 options={ingredientOptions}
                 value={selectedIngredients}
-                onChange={(selectedOptions) => {
-                  console.log('Selected options:', selectedOptions);
-                  setSelectedIngredients(selectedOptions);
+                onChange={(options) => {
+                  setSelectedIngredients(options);
                 }}
-              />
-
-              {selectedIngredients.map((ingredient) => (
-                <div key={ingredient.value}>
-                  <label htmlFor={`calories-${ingredient.value}`}>{ingredient.label} Calories:</label>
-                  <input
-                    id={`calories-${ingredient.value}`}
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    onChange={(e) => {
-                      // Actualizar el valor de calorías en la opción seleccionada
-                      setSelectedIngredients((prevSelectedIngredients) =>
-                        prevSelectedIngredients.map((prevIngredient) => {
-                          if (prevIngredient.value === ingredient.value) {
+                className="basic-multi-select"
+                classNamePrefix="select"
+                placeholder="Selecciona los ingredientes..."
+                isMulti
+                isSearchable
+                getOptionLabel={(option) => `${option.label} (${option.unidad})`}
+                getOptionValue={(option) => option.value}
+                formatOptionLabel={(option) => (
+                  <div>
+                    <span>{option.label}</span>
+                    <span className="text-gray-400 ml-2">
+                      ({option.calories} calorías/{option.unidad})
+                    </span>
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Peso (g)"
+                      value={option.weight}
+                      className="ml-2 border rounded-md p-1 w-24"
+                      onChange={(e) => {
+                        const newIngredients = selectedIngredients.map((ingredient) => {
+                          if (ingredient.value === option.value) {
                             return {
-                              ...prevIngredient,
-                              calories: parseFloat(e.target.value)
+                              ...ingredient,
+                              weight: e.target.value,
                             };
                           }
-                          return prevIngredient;
-                        })
-                      );
-                    }}
-                  />
-                </div>
-              ))}
+                          return ingredient;
+                        });
+                        setSelectedIngredients(newIngredients);
+                      }}
+                    />
+                  </div>
+                )}
+              />
+
+              <select
+                value={nutrition}
+                onChange={(e) => setNutrition(e.target.value)}
+                class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+              >
+                <option value="" disabled>Selecciona el tipo de nutricion</option>
+                <option value={true}>Vegano</option>
+                <option value={false}>No Vegano</option>
+              </select>
 
               <select
                 value={status}

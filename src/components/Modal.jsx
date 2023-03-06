@@ -20,11 +20,17 @@ function  Modal  ({ isVisible, onClose }){
     const [name, setName] = useState("");
     const [familia, setFamilia] = useState("");
     const [nutrition, setNutrition] = useState("");
+    const [calories, setCalories] = useState("");
+    const [unidad, setUnidad] = useState("");
 
     const navigate = useNavigate();
     const data = {
         name: name,
-       familia:familia
+       familia:familia,
+       calories: calories,
+       unidad: unidad
+
+       
 
     };
 
@@ -36,6 +42,8 @@ function  Modal  ({ isVisible, onClose }){
             onClose();
             setName("");
             setFamilia("");
+            setCalories("");
+            setUnidad("");
         });
 
     }
@@ -72,13 +80,13 @@ function  Modal  ({ isVisible, onClose }){
                     placeholder="Nombre del ingrediente"
                     class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                 />
-                {/* <input
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    type="text"
-                    placeholder="Calories"
+                { <input
+                    value={calories}
+                    onChange={(e) => setCalories(e.target.value)}
+                    type="number"
+                    placeholder="Calorias por unidad"
                     class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                /> */}
+                /> }
                 <input
                     value={familia}
                     onChange={(e) => setFamilia(e.target.value)}
@@ -86,6 +94,15 @@ function  Modal  ({ isVisible, onClose }){
                     placeholder="Familia u Origen"
                     class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                 />
+                <select
+                value={unidad}
+                onChange={(e) => setUnidad(e.target.value)}
+                class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+              >
+                <option value="" disabled>Selecciona la unidad de medida</option>
+                <option value={"Mililitros"}>Mililitros</option>
+                <option value={"Gramos"}>Gramos</option>
+              </select>
                 {/* <input
                     value={nutrition}
                     onChange={(e) => setNutrition(e.target.value)}

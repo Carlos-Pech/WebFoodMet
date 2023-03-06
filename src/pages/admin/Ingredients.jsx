@@ -27,11 +27,11 @@ const Ingredients = () => {
             font-medium text-sm rounded-lg px-5 py-2.5
             text-center mr-5
             "
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowModal1(true)}
         >
             Actualiza Ingredientes
         </button>
-        <Modal2 isVisible={showModal} onClose={() => setShowModal(false)} />
+        <Modal2 isVisible={showModal1} onClose={() => setShowModal1(false)} />
         <FormIngredients />
         </div>
     );
