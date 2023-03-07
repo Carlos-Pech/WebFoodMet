@@ -17,6 +17,7 @@ function ModalProduct({ isVisible, onClose }) {
   const [subcategories, setSubcategories] = useState([]);
   const [ingredientes2, setingredientes2] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [totalCalories, setTotalCalories] = useState(0);
 
 
 
@@ -52,28 +53,27 @@ function ModalProduct({ isVisible, onClose }) {
     fetchIngredients();
   }, []);
 
+  useEffect(() => {
+    function calculateTotalCalories() {
+      let calories = 0;
+      selectedIngredients.forEach((ingredient) => {
+        calories += ingredient.calories * ingredient.weight;
+      });
+      setTotalCalories(calories);
+    }
+
+    calculateTotalCalories();
+  }, [selectedIngredients]);
+  
+
   const ingredientOptions = ingredientes2.map((ingredient) => ({
     value: ingredient._id,
-    label: ingredient.name,
+    name: ingredient.name,
     calories: ingredient.calories,
     unidad: ingredient.unidad,
-    weight: ingredient.weight // Nueva propiedad para el gramaje del ingrediente
+    weight: ingredient.weight 
 
   }));
-  // function calculateCalories() {
-  //   let total = 0;
-  //   selectedIngredients.forEach((ingredient) => {
-  //     const selectedIngredient = ingredientOptions.find(
-  //       (opt) => opt.value === ingredient.value
-  //     );
-  //     const ingredientCalories = parseInt(selectedIngredient.calories);
-  //     const ingredientWeight = parseInt(ingredient.weight);
-  //     const CaloriesPIngredient = ingredientCalories * ingredientWeight;
-  //     total += CaloriesPIngredient;
-  //   });
-  //   setTotalCalories(total);
-  // }
-
 
 
 
@@ -88,7 +88,9 @@ function ModalProduct({ isVisible, onClose }) {
       "subcategory": selectedSubcategory,
       "inCart": false,
       "time": time,
-      "ingredients": selectedIngredients
+      "ingredients": selectedIngredients,
+      "totalCalories": totalCalories,
+      "image": image,
     }
     axios.post("http://localhost:3050/api/product/store", data, {
       headers: {
@@ -191,18 +193,18 @@ function ModalProduct({ isVisible, onClose }) {
                 placeholder="Selecciona los ingredientes..."
                 isMulti
                 isSearchable
-                getOptionLabel={(option) => `${option.label} (${option.unidad})`}
+                getOptionLabel={(option) => `${option.name} (${option.unidad})`}
                 getOptionValue={(option) => option.value}
                 formatOptionLabel={(option) => (
                   <div>
-                    <span>{option.label}</span>
+                    <span>{option.name}</span>
                     <span className="text-gray-400 ml-2">
                       ({option.calories} calorías/{option.unidad})
                     </span>
                     <input
                       type="number"
                       min="1"
-                      placeholder="Peso (g)"
+                      placeholder= {option.unidad}
                       value={option.weight}
                       className="ml-2 border rounded-md p-1 w-24"
                       onChange={(e) => {
