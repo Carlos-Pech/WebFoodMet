@@ -44,7 +44,7 @@ function ModalProduct({ isVisible, onClose }) {
   }, []);
 
   const fetchIngredients = () => {
-    fetch("http://localhost:3050/ingredients/add")
+    fetch("http://localhost:3050/ingredients/add/todo")
       .then((response) => response.json())
       .then((data) => setingredientes2(data.docs))
       .catch((error) => console.log(error));
@@ -64,14 +64,13 @@ function ModalProduct({ isVisible, onClose }) {
 
     calculateTotalCalories();
   }, [selectedIngredients]);
-  
 
   const ingredientOptions = ingredientes2.map((ingredient) => ({
     value: ingredient._id,
     name: ingredient.name,
     calories: ingredient.calories,
     unidad: ingredient.unidad,
-    weight: ingredient.weight 
+    weight: ingredient.weight
 
   }));
 
@@ -132,25 +131,40 @@ function ModalProduct({ isVisible, onClose }) {
               </h1>
             </div>
             <div class="space-y-4">
+            <div class="relative">
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
+                required
+                maxlength="40"
+                pattern="^[A-Za-z\s]+$"
                 placeholder="Nombre del producto"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
+              <span class="absolute bottom-1 right-3 text-gray-400 text-sm">{name.length}/40</span>
+              </div>
+              <div class="relative">
                 <input
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                type="text"
-                placeholder="Descripcion del producto"
-                class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-              />
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  type="text"
+                  required
+                  maxlength="100"
+                  pattern="^[A-Za-z\s]+$"
+                  
+                  placeholder="Descripcion del producto"
+                  class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                />
+                <span class="absolute bottom-1 right-3 text-gray-400 text-sm">{description.length}/100</span>
+              </div>
 
               <input
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                type="text"
+                type="number"
+                required
+              
                 placeholder="Precio"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
@@ -158,6 +172,8 @@ function ModalProduct({ isVisible, onClose }) {
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
                 type="number"
+                required
+                max="180"
                 placeholder="Tiempo de preparacion (minutos)"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
@@ -204,7 +220,7 @@ function ModalProduct({ isVisible, onClose }) {
                     <input
                       type="number"
                       min="1"
-                      placeholder= {option.unidad}
+                      placeholder={option.unidad}
                       value={option.weight}
                       className="ml-2 border rounded-md p-1 w-24"
                       onChange={(e) => {
@@ -252,6 +268,7 @@ function ModalProduct({ isVisible, onClose }) {
 
               <button
                 onClick={submitForm}
+                disabled={!(name, description) || !(name.match(/^[A-Za-z\s]+$/), description.match(/^[A-Za-z\s]+$/))}
                 class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg w-full text-sm"
               >
                 Agregar producto
