@@ -73,6 +73,13 @@ function ModalProduct({ isVisible, onClose }) {
     weight: ingredient.weight
 
   }));
+  const subcategoryOptions = subcategories
+  .filter((subcategory) => subcategory.category === selectedCategory)
+  .map((subcategory) => ({
+    value: subcategory._id,
+    name: subcategory.name,
+  }));
+
 
 
 
@@ -193,8 +200,8 @@ function ModalProduct({ isVisible, onClose }) {
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               >
                 <option value="" disabled>Selecciona una subcategoría</option>
-                {subcategories.map((subcategory) => (
-                  <option key={subcategory._id} value={subcategory._id}>{subcategory.name}</option>
+                {subcategoryOptions.map((subcategory) => (
+                  <option key={subcategory.value} value={subcategory.value}>{subcategory.name}</option>
                 ))}
               </select>
 
