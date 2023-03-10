@@ -158,7 +158,7 @@ function ModalProduct({ isVisible, onClose }) {
                   type="text"
                   required
                   maxlength="100"
-                  pattern="^[A-Za-z\s]+$"
+                  pattern="^[A-Za-z0-9\s]+$"
                   
                   placeholder="Descripcion del producto"
                   class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
@@ -171,7 +171,7 @@ function ModalProduct({ isVisible, onClose }) {
                 onChange={(e) => setPrice(e.target.value)}
                 type="number"
                 required
-              
+                min={0}
                 placeholder="Precio"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
@@ -180,6 +180,7 @@ function ModalProduct({ isVisible, onClose }) {
                 onChange={(e) => setTime(e.target.value)}
                 type="number"
                 required
+                min={0}
                 max="180"
                 placeholder="Tiempo de preparacion (minutos)"
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
@@ -227,6 +228,7 @@ function ModalProduct({ isVisible, onClose }) {
                     <input
                       type="number"
                       min="1"
+                      required
                       placeholder={option.unidad}
                       value={option.weight}
                       className="ml-2 border rounded-md p-1 w-24"
@@ -275,7 +277,7 @@ function ModalProduct({ isVisible, onClose }) {
 
               <button
                 onClick={submitForm}
-                disabled={!(name, description) || !(name.match(/^[A-Za-z\s]+$/), description.match(/^[A-Za-z\s]+$/))}
+                disabled={!(name, description) || !(name.match(/^[A-Za-z\s]+$/), description.match(/^[A-Za-z0-9\s]+$/))}
                 class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg w-full text-sm"
               >
                 Agregar producto

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import FormIngredients from "../../components/FormProduct";
+import FormIngredients from "../../components/FormIngredient";
 import Modal2 from "../../components/FormIngredientsPUT";
+import axios from 'axios';
 
 import Modal from "../../components/Modal";
 
@@ -12,6 +13,7 @@ const Ingredients = () => {
 
     return (
         <div className="text-end">
+        <Modal isVisible={showModal} onClose={() => setShowModal(false)} />
         <button
             className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none
             font-medium text-sm rounded-lg px-5 py-2.5
@@ -21,17 +23,7 @@ const Ingredients = () => {
         >
             Agregar Ingredientes
         </button>
-        <Modal isVisible={showModal} onClose={() => setShowModal(false)} />
-        <button
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none
-            font-medium text-sm rounded-lg px-5 py-2.5
-            text-center mr-5
-            "
-            onClick={() => setShowModal1(true)}
-        >
-            Actualiza Ingredientes
-        </button>
-        <Modal2 isVisible={showModal1} onClose={() => setShowModal1(false)} />
+
         <FormIngredients />
         </div>
     );
