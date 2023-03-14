@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../Services/api_url';
 import ModalPrueba from './Pagination';
 
 
@@ -24,7 +25,7 @@ function ModalIngredients({ isVisible, onClose }) {
 
     
     const fetchproducts = () => {
-        fetch("http://localhost:3050/api/product/")
+        fetch(`${baseUrl}/api/product/`)
         .then((response) => response.json())
         .then((data) => setProducts(data.docs))
         .catch((error) => console.log(error));

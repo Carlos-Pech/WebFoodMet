@@ -80,7 +80,7 @@ const FormIngredient = ({ id, nam }) => {
                                         </div>
                                     </div>
                                 </th>
-                                <td className="px-6 text-end"> {products.price}</td>
+                                <td className="px-6 text-end"> {`$ ${products.price}`}</td>
 
                                 <td className="px-6 text-end"> {products.status ? "Activo" : "Inactivo"}</td>
 

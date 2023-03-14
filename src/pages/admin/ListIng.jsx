@@ -1,6 +1,7 @@
 
 import React, {useEffect, useState} from 'react'
 import Products from '../../components/Products';
+import { baseUrl } from '../../Services/api_url';
 
 
 
@@ -8,7 +9,7 @@ const ListI = () => {
   const [products, setProducts] = useState([]);
 
   const fetchproducts=()=>{
-      fetch("http://localhost:3050/api/product/")
+      fetch(`${baseUrl}api/product/`)
   .then(response => response.json())
   .then(data=> setProducts(data.docs))
   .catch(error=>console.log(error))

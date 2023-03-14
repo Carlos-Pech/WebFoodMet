@@ -7,7 +7,7 @@ import LayoutAuth from "./layouts/LayoutAuth";
 
 //pages auth
 import Login from "./pages/auth/Login";
-
+import Register from './pages/auth/Register'
 //pages admin
 import Home from "./pages/admin/Home";
 import Error404 from "./pages/Error404";
@@ -36,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/*" element={<LayoutAuth />}>
           <Route index element={<Login />} />
+          <Route path="register" element={<Register />}/>
         </Route>
 
         <Route path="/home" element={<LayoutAdmin />}>

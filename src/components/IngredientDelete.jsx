@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { baseUrl } from "../Services/api_url";
 
 function ModalElimIngre({ isVisible, onClose, productId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.delete(`http://localhost:3050/ingredients/add/${productId}`);
+            await axios.delete(`${baseUrl}ingredients/add/${productId}`);
             onClose();
         } catch (error) {
             console.error("Error:", error);

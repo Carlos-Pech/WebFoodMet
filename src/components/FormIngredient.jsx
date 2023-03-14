@@ -5,6 +5,8 @@ import { FaTrash } from 'react-icons/fa';
 import ModalElimIngre from "./IngredientDelete";
 import ModaIngre from "./FormIngredientsPUT";
 import NavePage from "./Pagination";
+import { baseUrl } from "../Services/api_url";
+
 
 const FormIngredient = ({ id, nam }) => {
     const [products, setProducts] = useState([]);
@@ -15,7 +17,7 @@ const FormIngredient = ({ id, nam }) => {
     const [page, setPage] = useState(1)
 
     const fetchproducts = () => {
-        fetch(`http://localhost:3050/ingredients/add/?page=${page}`)
+        fetch(`${baseUrl}ingredients/add/?page=${page}`)
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data.docs)

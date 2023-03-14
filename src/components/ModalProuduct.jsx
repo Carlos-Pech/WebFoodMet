@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { baseUrl } from "../Services/api_url";
 
 function ModalProduct({ isVisible, onClose }) {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ function ModalProduct({ isVisible, onClose }) {
   const navigate = useNavigate();
 
   const fetchCategories = () => {
-    fetch("http://localhost:3050/category/add")
+    fetch(`${baseUrl}category/add`)
       .then((response) => response.json())
       .then((data) => setCategories(data.docs))
       .catch((error) => console.log(error));
@@ -34,7 +35,7 @@ function ModalProduct({ isVisible, onClose }) {
   }, []);
 
   const fetchSubcategories = () => {
-    fetch("http://localhost:3050/subcategory/add")
+    fetch(`${baseUrl}subcategory/add`)
       .then((response) => response.json())
       .then((data) => setSubcategories(data.docs))
       .catch((error) => console.log(error));
@@ -44,7 +45,7 @@ function ModalProduct({ isVisible, onClose }) {
   }, []);
 
   const fetchIngredients = () => {
-    fetch("http://localhost:3050/ingredients/add/todo")
+    fetch(`${baseUrl}ingredients/add/`)
       .then((response) => response.json())
       .then((data) => setingredientes2(data.docs))
       .catch((error) => console.log(error));
@@ -98,7 +99,7 @@ function ModalProduct({ isVisible, onClose }) {
       "totalCalories": totalCalories,
       "image": image,
     }
-    axios.post("http://localhost:3050/api/product/store", data, {
+    axios.post(`${baseUrl}api/product/store`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

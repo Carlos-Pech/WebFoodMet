@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { baseUrl } from "../Services/api_url";
 
 function ModaIngre({ isVisible, onClose, productName, productId }) {
     const [name, setName] = useState(productName);
@@ -11,7 +12,8 @@ function ModaIngre({ isVisible, onClose, productName, productId }) {
         (async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3050/ingredients/add/${productId}`
+                    `${baseUrl}ingredients/add/${productId}`
+
                 );
                 setProduct(response.data);
                 setName(response.data.name);
@@ -27,7 +29,7 @@ function ModaIngre({ isVisible, onClose, productName, productId }) {
         e.preventDefault();
         try {
             await axios.put(
-                `http://localhost:3050/ingredients/add/${productId}`,
+                `${baseUrl}ingredients/add/${productId}`,
                 {
                     name,
                     familia,

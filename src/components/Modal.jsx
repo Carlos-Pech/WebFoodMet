@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { baseUrl } from "../Services/api_url";
 
 function Modal({ isVisible, onClose }) {
     const [name, setName] = useState("");
@@ -12,7 +13,7 @@ function Modal({ isVisible, onClose }) {
         formData.append("name", name);
         formData.append("familia", familia);
 
-        axios.post("http://localhost:3050/ingredients/add/store", {
+        axios.post(`${baseUrl}ingredients/add/store`, {
             name,
             familia
         }, {

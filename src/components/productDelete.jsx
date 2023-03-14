@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { baseUrl } from "../Services/api_url";
 
 function ModalElimProd({ isVisible, onClose, productId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:3050/api/product/${productId}`);
+            await axios.put(`${baseUrl}api/product/${productId}`);
             onClose();
         } catch (error) {
             console.error("Error:", error);

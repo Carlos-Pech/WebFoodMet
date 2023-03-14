@@ -3,13 +3,15 @@ import { RiFolderChart2Line } from "react-icons/ri";
 import Modal from "./Modal";
 import ModalIngredients from "./ModalIngredients";
 import NavePage from "./Pagination";
+import { baseUrl } from "../Services/api_url";
+
 
 const CardProcuts = () => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
 
     const fetchproducts = () => {
-        fetch(`http://localhost:3050/api/product/?page=${page}`)
+        fetch(`${baseUrl}api/product/?page=${page}`)
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data.docs)
