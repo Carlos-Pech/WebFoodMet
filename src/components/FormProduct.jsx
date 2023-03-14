@@ -5,6 +5,7 @@ import { FaTrash } from 'react-icons/fa';
 import ModalProd from "./FormProductPUT";
 import ModalElimProd from "./productDelete";
 import NavePage from "./Pagination";
+import { baseUrl } from "../Services/api_url";
 
 const FormIngredient = ({ id, nam }) => {
     const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ const FormIngredient = ({ id, nam }) => {
     }, [page]);
 
     const fetchproducts = () => {
-        fetch(`http://localhost:3050/api/product/?page=${page}`)
+        fetch(`${baseUrl}api/product/?page=${page}`)
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data.docs)
