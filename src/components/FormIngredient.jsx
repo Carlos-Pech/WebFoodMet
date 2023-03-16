@@ -86,7 +86,7 @@ const FormIngredient = ({ id, nam }) => {
                                     <Modal3 isVisible={showIngredientes} onClose={() => setShowIngredientes(false)} />
                                 </div>
                             </td>
-                            <td className="px-11 text-end"> {products.price}</td>
+                            <td className="px-11 text-end"> ${ products.price}</td>
 
                             <td className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold pr-3 float-right 
                 ${products.status ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-800'}`}>
