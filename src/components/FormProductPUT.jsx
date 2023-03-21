@@ -1,31 +1,48 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Modal2({ isVisible, onClose, productName }) {
+    const [products, setProducts] = useState([]);
     const [name, setName] = useState("");
-    const [newnombre, setNewNombre] = useState("");
     const [price, setPrice] = useState("");
     const [status, setStatus] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState("");
 
     const navigate = useNavigate();
     const data = {
-        newnombre: newnombre,
+        name: name,
         price: price,
         status: status,
     };
+    const fetchProducts = () => {
+        fetch("http://localhost:3050/api/product/")
+            .then((response) => response.json())
+            .then((data) => setProducts(data.docs))
+            .catch((error) => console.log(error));
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    if (!isVisible) return null;
 
     function submitForm(e) {
         e.preventDefault();
-        axios.put(`http://localhost:3050/api/product/update/${name}`, data)
+        axios.put(`http://localhost:3050/api/product/${selectedProduct}`, data)
             .then(() => {
+                console.log(response.data);
                 onClose();
                 setName("");
-                setNewNombre("");
                 setPrice("");
                 setStatus("");
+            })
+            .catch((error) => {
+                console.log(error); // log the error
             });
     }
+
 
     if (!isVisible) return null;
 
@@ -46,16 +63,23 @@ function Modal2({ isVisible, onClose, productName }) {
                             </h1>
                         </div>
                         <div class="space-y-4">
+                            <select
+                                className="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                value={selectedProduct}
+                                onChange={(e) => setSelectedProduct(e.target.value)}
+                            >
+                                <option value="" disabled selected hidden>
+                                    Selecciona un platillo
+                                </option>
+                                {products.map((product) => (
+                                    <option key={product._id} value={product._id}>
+                                        {product.name}
+                                    </option>
+                                ))}
+                            </select>
                             <input
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                type="text"
-                                class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-600"
-                                placeholder="Nombre actual"
-                            />
-                            <input
-                                value={newnombre}
-                                onChange={(e) => setNewNombre(e.target.value)}
                                 type="text"
                                 class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-600"
                                 placeholder="Nuevo nombre"
