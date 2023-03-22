@@ -32,14 +32,10 @@ function Modal2({ isVisible, onClose, productName }) {
         e.preventDefault();
         axios.put(`http://localhost:3050/api/product/${selectedProduct}`, data)
             .then(() => {
-                console.log(response.data);
                 onClose();
                 setName("");
                 setPrice("");
                 setStatus("");
-            })
-            .catch((error) => {
-                console.log(error); // log the error
             });
     }
 
