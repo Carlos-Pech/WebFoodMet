@@ -13,7 +13,7 @@ const ModalPrueba = ({price}) => {
     
     return (
       <>
-      <p>precio:{price}</p>
+      <p></p>
       </>
     );
   };

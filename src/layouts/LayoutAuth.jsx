@@ -11,6 +11,3 @@ const LayoutAuth = () => {
 }
 
 export default LayoutAuth
-
-
-export default LayoutAuth

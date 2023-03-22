@@ -136,25 +136,3 @@ export default FormIngredient;
 
     //     </tr>
     // ))}
-
-                                <td className="px-6 text-end">
-                                    <button onClick={() => { setIsModalOpen(true); setSelectedProductId(products._id); }} style={{ color: "orange" }}><FaEdit /></button>&nbsp;&nbsp;
-                                    {isModalOpen && selectedProductId === products._id && (
-                                        <ModaIngre
-                                            isVisible={isModalOpen}
-                                            onClose={() => setIsModalOpen(false)}
-                                            productName={products.name}
-                                            productId={selectedProductId}
-                                        />
-                                    )}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <NavePage page={page} setPage={setPage} />
-        </>
-    );
-};
-export default FormIngredient;

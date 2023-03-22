@@ -44,7 +44,7 @@ function ModalProduct({ isVisible, onClose }) {
   }, []);
 
   const fetchIngredients = () => {
-    fetch("http://localhost:3050/ingredients/add/todo")
+    fetch("http://localhost:3050/ingredients/add")
       .then((response) => response.json())
       .then((data) => setingredientes2(data.docs))
       .catch((error) => console.log(error));
