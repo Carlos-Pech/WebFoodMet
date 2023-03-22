@@ -112,5 +112,3 @@ function Modal2({ isVisible, onClose, productName }) {
         </div>
     );
 }
-
-export default Modal2;

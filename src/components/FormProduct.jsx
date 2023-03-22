@@ -87,3 +87,26 @@ const FormIngredients = ({ id, nam }) => {
     );
 };
 export default FormIngredients;
+
+                                <td className="px-10 text-end">{new Date(products.createdAt).toLocaleDateString()}</td>
+                                <td className="px-6 text-end">
+                                    <button onClick={() => { setIsModalOpen(true); setSelectedProductId(products._id); }} style={{ color: "orange" }}><FaEdit /></button>&nbsp;&nbsp;
+                                    {isModalOpen && selectedProductId === products._id && (
+                                        <ModalProd
+                                            isVisible={isModalOpen}
+                                            onClose={() => setIsModalOpen(false)}
+                                            productName={products.name}
+                                            productId={selectedProductId}
+                                        />
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <NavePage page={page} setPage={setPage} />
+        </>
+    );
+};
+export default FormIngredient;

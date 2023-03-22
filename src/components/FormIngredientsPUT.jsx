@@ -1,28 +1,44 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Modal2({ isVisible, onClose, productName }) {
+    const [products, setProducts] = useState([]);
     const [name, setName] = useState("");
-    const [familia, setFamilia] = useState("");
+    const [price, setPrice] = useState("");
     const [status, setStatus] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState("");
 
     const navigate = useNavigate();
     const data = {
-        familia: familia,
+        name: name,
+        price: price,
         status: status,
     };
+    const fetchProducts = () => {
+        fetch("http://localhost:3050/api/product/")
+            .then((response) => response.json())
+            .then((data) => setProducts(data.docs))
+            .catch((error) => console.log(error));
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    if (!isVisible) return null;
 
     function submitForm(e) {
         e.preventDefault();
-        axios.put(`http://localhost:3050/api/product/update/${name}`, data)
+        axios.put(`http://localhost:3050/api/product/${selectedProduct}`, data)
             .then(() => {
                 onClose();
                 setName("");
-                setFamilia("");
+                setPrice("");
                 setStatus("");
             });
     }
+
 
     if (!isVisible) return null;
 
@@ -39,23 +55,37 @@ function Modal2({ isVisible, onClose, productName }) {
                     <div class="py-12 px-12 bg-white rounded-2xl shadow-xl z-20 ">
                         <div>
                             <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
-                                Actualiza un Ingrediente
+                                Actualiza un producto
                             </h1>
                         </div>
                         <div class="space-y-4">
+                            <select
+                                className="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                value={selectedProduct}
+                                onChange={(e) => setSelectedProduct(e.target.value)}
+                            >
+                                <option value="" disabled selected hidden>
+                                    Selecciona un platillo
+                                </option>
+                                {products.map((product) => (
+                                    <option key={product._id} value={product._id}>
+                                        {product.name}
+                                    </option>
+                                ))}
+                            </select>
                             <input
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 type="text"
                                 class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-600"
-                                placeholder="Ingrediente a actualizar"
+                                placeholder="Nuevo nombre"
                             />
                             <input
-                                value={familia}
-                                onChange={(e) => setFamilia(e.target.value)}
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
                                 type="text"
                                 class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-600"
-                                placeholder="Familia"
+                                placeholder="Precio"
                             />
                             <select
                                 value={status}

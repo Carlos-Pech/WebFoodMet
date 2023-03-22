@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { baseUrl } from '../../Services/api_url';
 
 const Platillos = ({products}) => {
   const [data, setData] = useState([]);
@@ -7,7 +8,7 @@ const Platillos = ({products}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios('http://localhost:3050/api/product/');
+        const result = await axios(`${baseUrl}api/product/`);
         setData(result.data);
       } catch (error) {
         console.error(error);
