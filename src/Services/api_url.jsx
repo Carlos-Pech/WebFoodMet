@@ -1,1 +1,1 @@
-export const baseUrl = "https://apifoodmet.up.railway.app/";
+export const baseUrl = "https://apifood-met.up.railway.app/";

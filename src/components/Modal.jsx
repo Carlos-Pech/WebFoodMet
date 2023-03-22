@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../Services/api_url";
 
 function  Modal  ({ isVisible, onClose }){
 
@@ -36,7 +37,7 @@ function  Modal  ({ isVisible, onClose }){
 
     function submitForm(e) {
         e.preventDefault();
-        axios.post("http://localhost:3050/ingredients/add/store", data)
+        axios.post(`${baseUrl}ingredients/add/store`, data)
         .then(() => {
             onClose();
             onClose();

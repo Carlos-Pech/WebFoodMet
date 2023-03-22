@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { baseUrl } from "../Services/api_url";
 import Modal2 from "./Modal_Actualizar_Producto";
 
 const FormIngredients = ({ id, nam }) => {
 
     const [products, setProducts] = useState([]);
     const [posts, setPosts] = useState([])
-    const api = 'http://localhost:3050/ingredients/'
+    const api = `${baseUrl}ingredients/`
 
     const fetchproducts = () => {
-        fetch("http://localhost:3050/ingredients/add/")
+        fetch(`${baseUrl}ingredients/add/`)
             .then((response) => response.json())
             .then((data) => setProducts(data.docs))
             .catch((error) => console.log(error));

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../Services/api_url";
 
 function Modal2({ isVisible, onClose, productName }) {
     const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ function Modal2({ isVisible, onClose, productName }) {
         status: status,
     };
     const fetchProducts = () => {
-        fetch("http://localhost:3050/api/product/")
+        fetch(`${baseUrl}/api/product/`)
             .then((response) => response.json())
             .then((data) => setProducts(data.docs))
             .catch((error) => console.log(error));
@@ -30,7 +31,7 @@ function Modal2({ isVisible, onClose, productName }) {
 
     function submitForm(e) {
         e.preventDefault();
-        axios.put(`http://localhost:3050/api/product/${selectedProduct}`, data)
+        axios.put(`${baseUrl}api/product/${selectedProduct}`, data)
             .then(() => {
                 onClose();
                 setName("");

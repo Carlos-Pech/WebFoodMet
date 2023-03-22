@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { baseUrl } from "../Services/api_url";
 
 function Modal3({ isVisible, onClose, productName }) {
   const [products, setProducts] = useState([]);
@@ -8,7 +9,7 @@ function Modal3({ isVisible, onClose, productName }) {
   const navigate = useNavigate();
 
   const fetchProducts = () => {
-    fetch("http://localhost:3050/api/product/")
+    fetch(`${baseUrl}/api/product/`)
       .then((response) => response.json())
       .then((data) => setProducts(data.docs))
       .catch((error) => console.log(error));

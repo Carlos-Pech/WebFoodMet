@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../Services/api_url";
 
 function Modal2({ isVisible, onClose, productName }) {
     const [name, setName] = useState("");
@@ -19,7 +20,7 @@ function Modal2({ isVisible, onClose, productName }) {
 
     function submitForm(e) {
         e.preventDefault();
-        axios.put(`http://localhost:3050/api/product/update/${name}`, data)
+        axios.put(`${baseUrl}api/product/update/${name}`, data)
             .then(() => {
                 onClose();
                 setName("");
