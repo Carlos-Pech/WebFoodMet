@@ -11,7 +11,7 @@ import { baseUrl } from "../Services/api_url.jsx";
     // const api='http://localhost:3050/ingredients/'
 
     const fetchproducts = () => {
-        fetch(`${baseUrl}/api/product/`)
+        fetch(`${baseUrl}api/product/`)
         .then((response) => response.json())
         .then((data) => setProducts(data.docs))
         .catch((error) => console.log(error));

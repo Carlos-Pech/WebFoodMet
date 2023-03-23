@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { baseUrl } from "../Services/api_url";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ModalProduct({ isVisible, onClose }) {
   const [name, setName] = useState("");
@@ -21,8 +23,13 @@ function ModalProduct({ isVisible, onClose }) {
   const [totalCalories, setTotalCalories] = useState(0);
 
 
-
+  // const notify = () => toast.success("Platillo Agregado!");
   const navigate = useNavigate();
+
+//   function ambos(){
+//     notify();
+//     submitForm();
+// }
 
   const fetchCategories = () => {
     fetch(`${baseUrl}category/add`)
@@ -62,6 +69,7 @@ function ModalProduct({ isVisible, onClose }) {
       });
       setTotalCalories(calories);
     }
+
 
     calculateTotalCalories();
   }, [selectedIngredients]);
@@ -276,7 +284,9 @@ function ModalProduct({ isVisible, onClose }) {
                 onChange={(e) => setImage(e.target.files[0])}
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
-
+            <div>
+              
+            
               <button
                 onClick={submitForm}
                 disabled={!(name, description) || !(name.match(/^[A-Za-z\s]+$/), description.match(/^[A-Za-z0-9\s]+$/))}
@@ -284,6 +294,19 @@ function ModalProduct({ isVisible, onClose }) {
               >
                 Agregar producto
               </button>
+              <ToastContainer 
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              />
+              </div>
             </div>
           </div>
         </div>

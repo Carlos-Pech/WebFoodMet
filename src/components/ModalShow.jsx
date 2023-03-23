@@ -9,7 +9,7 @@ function Modal3({ isVisible, onClose, productName }) {
   const navigate = useNavigate();
 
   const fetchProducts = () => {
-    fetch(`${baseUrl}/api/product/`)
+    fetch(`${baseUrl}api/product/`)
       .then((response) => response.json())
       .then((data) => setProducts(data.docs))
       .catch((error) => console.log(error));
