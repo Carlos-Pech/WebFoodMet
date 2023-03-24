@@ -34,7 +34,7 @@ const CardProcuts = () => {
                                 <p className="text-sl font-bold text-gray-900 uppercase">
                                     {products.name}
                                 </p>
-                                <p className="text-sm text-gray-400 uppercase">{products.desciption}</p>
+                                <p className="text-sm text-gray-400 uppercase">{products.description}</p>
                             </div>
                             <br />
                             <div className=" h-28">
@@ -54,9 +54,10 @@ const CardProcuts = () => {
                                 </div>
                                 <div className="flex flex-col items-center justify-between text-gray-900 md:flex-row">
                                     <p className="text-xl font-bold">${products.price}</p>
-                                    <button className="px-6 py-2 uppercase transition duration-200 ease-in border-2 border-gray-900 rounded-full hover:bg-gray-800 hover:text-white focus:outline-none">
-                                        Detalles
-                                    </button>
+                                    <p className="text-sm text-gray-400 uppercase">Ingredientes:</p>
+                                    <p>
+                                    {products.ingredients.map((ingredient) => ingredient.name).join(", ")}
+                                    </p>
                                 </div>
                             </div>
                         </div>

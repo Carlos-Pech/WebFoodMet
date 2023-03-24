@@ -17,6 +17,7 @@ const Sidebar = () => {
   return (
     <div className="xl:h-[100vh] overflow-y-scroll fixed xl:static w-full h-full -left-full top-0 bg-secondary-100 p-12 flex flex-col justify-between">
       <div>
+        <img src="../../public/foodmet logo2.png" alt="Logo" />
         <h1 className="text-center text-2xl font-bold text-white mb-10">
           FoodMet<span className="text-primary texxt-4xl">.</span>
         </h1>

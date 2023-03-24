@@ -23,7 +23,7 @@ function ModalProduct({ isVisible, onClose }) {
   const [totalCalories, setTotalCalories] = useState(0);
 
 
-  // const notify = () => toast.success("Platillo Agregado!");
+  const notify = () => toast.success("Platillo Agregado!");
   const navigate = useNavigate();
 
 //   function ambos(){
@@ -114,13 +114,14 @@ function ModalProduct({ isVisible, onClose }) {
       },
     })
       .then(() => {
-        onClose();
+        notify();
         setName("");
         setSelectedCategory([]);
         setSelectedSubcategory([]);
         setPrice("");
         setTime("");
         setNutrition([]);
+        setStatus("");
         setDescription("");
         setSelectedIngredients([]);
         setImage(null);
