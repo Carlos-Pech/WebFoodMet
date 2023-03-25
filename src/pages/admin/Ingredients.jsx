@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FormIngredients from "../../components/FormProduct";
-import Modal2 from "../../components/FormIngredientsPUT";
+import Modal4 from "../../components/ModalUpdateIngredients.jsx";
 
 import Modal from "../../components/Modal";
 
@@ -31,7 +31,7 @@ const Ingredients = () => {
         >
             Actualiza Ingredientes
         </button>
-        <Modal2 isVisible={showModal1} onClose={() => setShowModal1(false)} />
+        <Modal4 isVisible={showModal1} onClose={() => setShowModal1(false)} />
         <FormIngredients />
         </div>
     );

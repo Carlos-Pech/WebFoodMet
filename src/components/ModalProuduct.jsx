@@ -26,10 +26,10 @@ function ModalProduct({ isVisible, onClose }) {
   const notify = () => toast.success("Platillo Agregado!");
   const navigate = useNavigate();
 
-//   function ambos(){
-//     notify();
-//     submitForm();
-// }
+  //   function ambos(){
+  //     notify();
+  //     submitForm();
+  // }
 
   const fetchCategories = () => {
     fetch(`${baseUrl}category/add`)
@@ -83,11 +83,11 @@ function ModalProduct({ isVisible, onClose }) {
 
   }));
   const subcategoryOptions = subcategories
-  .filter((subcategory) => subcategory.category === selectedCategory)
-  .map((subcategory) => ({
-    value: subcategory._id,
-    name: subcategory.name,
-  }));
+    .filter((subcategory) => subcategory.category === selectedCategory)
+    .map((subcategory) => ({
+      value: subcategory._id,
+      name: subcategory.name,
+    }));
 
 
 
@@ -149,18 +149,18 @@ function ModalProduct({ isVisible, onClose }) {
               </h1>
             </div>
             <div class="space-y-4">
-            <div class="relative">
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                required
-                maxlength="40"
-                pattern="^[A-Za-z\s]+$"
-                placeholder="Nombre del producto"
-                class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-              />
-              <span class="absolute bottom-1 right-3 text-gray-400 text-sm">{name.length}/40</span>
+              <div class="relative">
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  required
+                  maxlength="40"
+                  pattern="^[A-Za-z\s]+$"
+                  placeholder="Nombre del producto"
+                  class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                />
+                <span class="absolute bottom-1 right-3 text-gray-400 text-sm">{name.length}/40</span>
               </div>
               <div class="relative">
                 <input
@@ -170,7 +170,7 @@ function ModalProduct({ isVisible, onClose }) {
                   required
                   maxlength="100"
                   pattern="^[A-Za-z0-9\s]+$"
-                  
+
                   placeholder="Descripcion del producto"
                   class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                 />
@@ -285,28 +285,28 @@ function ModalProduct({ isVisible, onClose }) {
                 onChange={(e) => setImage(e.target.files[0])}
                 class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
               />
-            <div>
-              
-            
-              <button
-                onClick={submitForm}
-                disabled={!(name, description) || !(name.match(/^[A-Za-z\s]+$/), description.match(/^[A-Za-z0-9\s]+$/))}
-                class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg w-full text-sm"
-              >
-                Agregar producto
-              </button>
-              <ToastContainer 
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-              />
+              <div>
+
+
+                <button
+                  onClick={submitForm}
+                  disabled={!(name, description) || !(name.match(/^[A-Za-z\s]+$/), description.match(/^[A-Za-z0-9\s]+$/))}
+                  class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg w-full text-sm"
+                >
+                  Agregar producto
+                </button>
+                <ToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
               </div>
             </div>
           </div>

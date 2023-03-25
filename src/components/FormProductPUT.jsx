@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../Services/api_url";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Modal2({ isVisible, onClose, productName }) {
     const [products, setProducts] = useState([]);
@@ -10,6 +12,7 @@ function Modal2({ isVisible, onClose, productName }) {
     const [status, setStatus] = useState("");
     const [selectedProduct, setSelectedProduct] = useState("");
 
+    const notify = () => toast.success("Platillo Actualizado!");
     const navigate = useNavigate();
     const data = {
         name: name,
@@ -33,7 +36,8 @@ function Modal2({ isVisible, onClose, productName }) {
         e.preventDefault();
         axios.put(`${baseUrl}api/product/${selectedProduct}`, data)
             .then(() => {
-                onClose();
+                notify();
+                setSelectedProduct("");
                 setName("");
                 setPrice("");
                 setStatus("");
@@ -106,6 +110,18 @@ function Modal2({ isVisible, onClose, productName }) {
                             >
                                 Actualizar
                             </button>
+                            <ToastContainer
+                                position="top-center"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="light"
+                            />
                         </div>
                     </div>
                 </div>
