@@ -112,7 +112,7 @@ function Modal4({ isVisible, onClose, ingredientName }) {
                             </button>
                             <ToastContainer
                                 position="top-center"
-                                autoClose={5000}
+                                autoClose={2000}
                                 hideProgressBar={false}
                                 newestOnTop={false}
                                 closeOnClick
