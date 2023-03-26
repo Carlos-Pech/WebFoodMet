@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Products from '../admin/Products'
 import { baseUrl } from "../../Services/api_url.jsx";
+import Pagination from "../../components/Pagination.jsx";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ const Home = () => {
 
     <div className='container'>
       <div>
-
+      
       </div>
       <Products />
     </div>

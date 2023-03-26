@@ -2,27 +2,32 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../Services/api_url";
 import Modal2 from "./Modal_Actualizar_Producto";
+import NavePage from "./Pagination";
 
 const FormIngredients = ({ id, nam }) => {
 
     const [products, setProducts] = useState([]);
     const [posts, setPosts] = useState([])
+    const [page, setPage] = useState(1);
     const api = `${baseUrl}ingredients/`
 
     const fetchproducts = () => {
-        fetch(`${baseUrl}ingredients/add/`)
+        fetch(`${baseUrl}ingredients/add/?page=${page}`)
             .then((response) => response.json())
             .then((data) => setProducts(data.docs))
             .catch((error) => console.log(error));
     };
     useEffect(() => {
         fetchproducts();
-    }, []);
+    }, [page]);
 
 
 
 
     return (
+        <>
+        <p class="text-xl font-bold text-center">Pagina Actual: {page}</p>
+        <NavePage page={page} setPage={setPage} />
         <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-8">
             <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 justify-end">
                 <thead class="bg-gray-50">
@@ -85,6 +90,7 @@ const FormIngredients = ({ id, nam }) => {
                 </tbody>
             </table>
         </div>
+        </>
     );
 };
 export default FormIngredients;

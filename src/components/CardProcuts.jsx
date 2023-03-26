@@ -25,6 +25,7 @@ const CardProcuts = () => {
 
     return (
         <>
+        <p class="text-xl font-bold text-center">Pagina Actual: {page}</p>
             <NavePage page={page} setPage={setPage} />
             <div className="grid gap-4 grid-cols-3 grid-rows-3">
                 {products.map((products, index) => (
