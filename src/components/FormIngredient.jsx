@@ -35,7 +35,7 @@ import { baseUrl } from "../Services/api_url.jsx";
                 scope="col"
                 className="px-1 py-4 font-medium text-gray-900 justify-end text-right "
                 >
-                Imagen
+                
                 </th>
                 <th
                 scope="col"
