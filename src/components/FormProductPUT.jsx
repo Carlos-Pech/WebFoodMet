@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../Services/api_url";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavePage from "./Pagination";
 
 function Modal2({ isVisible, onClose, productName }) {
     const [products, setProducts] = useState([]);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [status, setStatus] = useState("");
+    const [page, setPage] = useState(1);
     const [selectedProduct, setSelectedProduct] = useState("");
 
     const notify = () => toast.success("Platillo Actualizado!");
@@ -20,7 +22,7 @@ function Modal2({ isVisible, onClose, productName }) {
         status: status,
     };
     const fetchProducts = () => {
-        fetch(`${baseUrl}api/product/`)
+        fetch(`${baseUrl}api/product/?page=${page}`)
             .then((response) => response.json())
             .then((data) => setProducts(data.docs))
             .catch((error) => console.log(error));
@@ -28,7 +30,7 @@ function Modal2({ isVisible, onClose, productName }) {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [page]);
 
     if (!isVisible) return null;
 
@@ -62,6 +64,8 @@ function Modal2({ isVisible, onClose, productName }) {
                             <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
                                 Actualiza un producto
                             </h1>
+                            <p class="text-xl font-bold text-center">Pagina Actual: {page}</p>
+                            <NavePage page={page} setPage={setPage} />
                         </div>
                         <div class="space-y-4">
                             <select

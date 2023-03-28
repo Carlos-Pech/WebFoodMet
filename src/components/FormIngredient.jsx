@@ -38,6 +38,18 @@ import { baseUrl } from "../Services/api_url.jsx";
                 </th>
                 <th
                 scope="col"
+                className="px-1 py-4 font-medium text-gray-900 justify-end text-right "
+                >
+                Categoria
+                </th>
+                <th
+                scope="col"
+                className="px-1 py-4 font-medium text-gray-900 justify-end text-right "
+                >
+                Subcategoria
+                </th>
+                <th
+                scope="col"
                 className="px-6 py-4 font-medium text-gray-900  text-end"
                 >
                 Ingredientes
@@ -73,11 +85,8 @@ import { baseUrl } from "../Services/api_url.jsx";
                     </div>
                     </div>
                 </th>
-                {/* <td className="px-8 py-4  text-end">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
-                        {products.calories}
-                        </span>
-                    </td> */}
+                <td className="px-11 text-end"> {products.category.name}</td>
+                <td className="px-11 text-end"> {products.subcategory.name}</td>
                 <td className="px-11 text-end">
                     <div>
                     <button
