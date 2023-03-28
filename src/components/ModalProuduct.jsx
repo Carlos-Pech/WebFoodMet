@@ -23,7 +23,7 @@ function ModalProduct({ isVisible, onClose }) {
   const [totalCalories, setTotalCalories] = useState(0);
 
 
-  const notify = () => toast.success("Platillo Agregado!");
+  const notify = () => toast.success(`Platillo (${name}) agregado!`);
   const navigate = useNavigate();
 
   //   function ambos(){

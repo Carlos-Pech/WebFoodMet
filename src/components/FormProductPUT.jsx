@@ -14,7 +14,7 @@ function Modal2({ isVisible, onClose, productName }) {
     const [page, setPage] = useState(1);
     const [selectedProduct, setSelectedProduct] = useState("");
 
-    const notify = () => toast.success("Platillo Actualizado!");
+    const notify = () => toast.success(`Platillo (${name}) actualizado!`);
     const navigate = useNavigate();
     const data = {
         name: name,

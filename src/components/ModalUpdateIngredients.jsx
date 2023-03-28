@@ -13,7 +13,7 @@ function Modal4({ isVisible, onClose, ingredientName }) {
     const [selectedIngredient, setSelectedIngredient] = useState("");
 
     const navigate = useNavigate();
-    const notify = () => toast.success("Ingrediente Actualizado!");
+    const notify = () => toast.success(`Ingrediente (${name}) actualizado!`);
     const data = {
         name: name,
         calories: calories,

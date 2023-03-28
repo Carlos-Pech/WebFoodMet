@@ -4,6 +4,7 @@ import { baseUrl } from "../Services/api_url.jsx";
     import Modal2 from "./FormProductPUT.jsx";
     import Modal3 from "./ModalShow.jsx";
     import NavePage from "./Pagination";
+    import * as Popover from "@radix-ui/react-popover";
 
     const FormIngredient = ({ id, nam }) => {
     const [products, setProducts] = useState([]);
@@ -30,6 +31,12 @@ import { baseUrl } from "../Services/api_url.jsx";
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 justify-end">
             <thead className="bg-gray-50">
             <tr>
+            <th
+                scope="col"
+                className="px-1 py-4 font-medium text-gray-900 justify-end text-right "
+                >
+                Imagen
+                </th>
                 <th
                 scope="col"
                 className="px-1 py-4 font-medium text-gray-900 justify-end text-right "
@@ -78,6 +85,7 @@ import { baseUrl } from "../Services/api_url.jsx";
             <tbody className="divide-y divide-gray-100 border-t border-gray-100 ">
             {products.map((products, index) => (
                 <tr className="hover:bg-gray-50">
+                    <td className="text-end"><img class="w-12 h-12 ml-auto rounded-full" src={products.image} alt="Rounded avatar" /></td>
                 <th className="flex justify-end  py-4 font-normal text-blue-900">
                     <div className="">
                     <div className="font-medium text-gray-700 ">
@@ -85,15 +93,13 @@ import { baseUrl } from "../Services/api_url.jsx";
                     </div>
                     </div>
                 </th>
-                <td className="px-11 text-end"> {products.category.name}</td>
+                <td className="px-11 text-end">{products.category.name}</td>
                 <td className="px-11 text-end"> {products.subcategory.name}</td>
                 <td className="px-11 text-end">
                     <div>
                     <button
-                        class="middle none center rounded-lg bg-green-300 p-3 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        class="middle center rounded-lg bg-black p-2 font-sans text-xs font-bold uppercase text-white shadow-md shadow-black-500/20 transition-all hover:shadow-lg hover:shadow-grey focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-light="true"
-                        data-modal-target="small-modal"
-                        data-modal-toggle="small-modal"
                         onClick={() => setShowIngredientes(true)}
                         >
                         <i class="material-icons">+</i>

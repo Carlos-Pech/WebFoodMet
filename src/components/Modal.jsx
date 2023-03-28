@@ -27,7 +27,7 @@ function Modal({ isVisible, onClose }) {
     const [unidad, setUnidad] = useState("");
 
     const navigate = useNavigate();
-    const notify = () => toast.success("Ingrediente Agregado!");
+    const notify = () => toast.success(`Ingrediente (${name}) agregado!`);
     const data = {
         name: name,
         familia: familia,
